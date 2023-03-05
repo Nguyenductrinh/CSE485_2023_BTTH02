@@ -152,11 +152,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`) VALUES
-('tuan', '123'),
-('thuy', '123'),
-('phong', '123'),
-('hien', '123'),
-('dungkt', 'abc');
+('trinh', '123'),
+('trung', '123'),
+('hùng', '123'),
+
 
 --
 -- Indexes for dumped tables
