@@ -1,24 +1,48 @@
 <?php
-class ArticleController{
-    // Hàm xử lý hành động index
-    public function index(){
-        // Nhiệm vụ 1: Tương tác với Services/Models
-        echo "Tương tác với Services/Models from Category";
-        // Nhiệm vụ 2: Tương tác với View
-        echo "Tương tác với View from Category";
+require_once 'CategoriesService.php';
+
+class CategoriesController {
+    private $service;
+
+    public function __construct() {
+        $this->service = new CategoriesService();
     }
 
-    public function add(){
-        // Nhiệm vụ 1: Tương tác với Services/Models
-        // echo "Tương tác với Services/Models from Category";
-        // Nhiệm vụ 2: Tương tác với View
-        include("views/category/add_category.php");
+    public function index() {
+        $categories = $this->service->getAllCategories();
+        require 'index.php';
     }
 
-    public function list(){
-        // Nhiệm vụ 1: Tương tác với Services/Models
-        // echo "Tương tác với Services/Models from Category";
-        // Nhiệm vụ 2: Tương tác với View
-        include("views/category/list_Category.php");
+    public function addCategory() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $name = $_POST['name'];
+            $category = new Category(null, $name);
+            $this->service->addCategory($category);
+        }
+
+        header('Location: index.php');
+        exit();
+    }
+
+    public function editCategory() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $category = new Category($id, $name);
+            $this->service->updateCategory($category);
+        }
+
+        header('Location: index.php');
+        exit();
+    }
+
+    public function deleteCategory() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id'];
+            $this->service->deleteCategory($id);
+        }
+
+        header('Location: index.php');
+        exit();
     }
 }

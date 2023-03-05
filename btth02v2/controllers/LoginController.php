@@ -1,25 +1,27 @@
 <?php
-require_once '../services/LoginService.php';
-
-class UserController {
-  function login() {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $user = new User($username, $password);
-
-    if ($user->authenticate()) {
-      $_SESSION['username'] = $username;
-      // Điều hướng đến trang chính sau khi đăng nhập thành công
-    } else {
-      // Hiển thị thông báo lỗi
-      echo'Đăng nhập thất bại';
+include("services/LoginService.php");
+class LoginController {
+    public function index() {
+        include("../views/home/index.php");
     }
-  }
 
-  function logout() {
-    session_destroy();
-    // Điều hướng đến trang đăng nhập sau khi đăng xuất thành công
-  }
+    public function checkAccount() {
+        $username = $_GET['username'] ?? '';
+        $password = $_GET['password'] ?? '';
+        if($username != '' and $password !=''){
+            // include("?controller=admin");
+            $loginService = new LoginService();
+            if($loginService->checkLogin($username,$password)){
+                // include("views/admin/index.php");
+                header('Location: ?controller=admin');
+
+            }else{
+                $message = 'Lỗi Không đăng nhập được';
+                include("views/home/login.php");
+            }
+        }
+        
+        
+    }
 }
 ?>
