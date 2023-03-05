@@ -1,5 +1,6 @@
 <?php
-class Article{
+class Article
+{
     // Thuộc tính
 
     private $title;
@@ -7,14 +8,16 @@ class Article{
     private $cat_name;
 
 
-    public function __construct($title, $summary,$cat_name){
+    public function __construct($title, $summary, $cat_name)
+    {
         $this->title = $title;
         $this->summary = $summary;
         $this->cat_name = $cat_name;
     }
 
     // Setter và Getter
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->title;
     }
 }
